@@ -70,7 +70,7 @@ public class MainFrm extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Grpafos Camino mas corto");
+        setTitle("Algoritmo de Dijkstra");
 
         inspector.setBackground(new java.awt.Color(204, 204, 255));
         inspector.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Inspector", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.TOP));
