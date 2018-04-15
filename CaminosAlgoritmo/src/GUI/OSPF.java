@@ -29,6 +29,9 @@ public class OSPF {
     public static String Nodo_Inicial,Nodo_Final,camino="";
     HashMap<String,Integer> listacostos=new HashMap<>();
     HashMap<String,Integer> listafinal=new HashMap<>();
+    static String costoslargo ="";
+    static String costoscorto ="";
+    private int costomayor,costomenor;
     ArrayList<Lineas> largo=new ArrayList<>();
     ArrayList<Lineas> corto=new ArrayList<>();
     public OSPF(String Nodo_Inicial,String Nodo_Final){
@@ -54,11 +57,11 @@ public class OSPF {
     
     private String getMayor(){
         String s="",iterator="";
-        int old=0;
+        costomayor=0;
         for (Iterator<String> it = listafinal.keySet().iterator(); it.hasNext();) {
             iterator=it.next();
-            if(old<listafinal.get(iterator)){
-                old=listafinal.get(iterator);
+            if(costomayor<listafinal.get(iterator)){
+                costomayor=listafinal.get(iterator);
                 s=iterator;
             }    
         }
@@ -75,11 +78,20 @@ public class OSPF {
             camino="";
         String st=(Nodo_Final+","+getCaminoNodos(getMenor())); 
         String[] array=st.split(",");
+        Collections.reverse(Arrays.asList(array));
+        int c=0;
+            costoscorto="";
+            costoscorto+="El MENOR Costo es de "+costomenor+"\n";
+            System.out.println("El MENOR Costo es de "+costomenor);
         for(int x=0;x<array.length-1;x++){
-            if(NodosFactory.IDexist(array[x])&&NodosFactory.IDexist(array[x+1]))
-            corto.add(new Lineas(NodosFactory.getNodo(array[x]).getLocation(),
+            if(NodosFactory.IDexist(array[x])&&NodosFactory.IDexist(array[x+1])){
+                c+=NodosFactory.getNodo(array[x]).getCosto(array[x+1]);
+                System.out.println("De '"+array[x]+"' A '"+array[x+1]+"' tiene un costo de "+c);
+                costoscorto+="De '"+array[x]+"' a '"+array[x+1]+"' tiene un costo de "+c+"\n";
+                corto.add(new Lineas(NodosFactory.getNodo(array[x]).getLocation(),
                     NodosFactory.getNodo(array[x+1]).getLocation(),
                     4));  
+            }    
         }
         }
         
@@ -88,21 +100,24 @@ public class OSPF {
     public void LineasLargo(){
         largo.clear();
         String st="";
-        /*System.out.println("ALL");
-        listacostos.keySet().forEach((a)->{
-            System.out.println(a+","+listacostos.get(a));
-        });*/
         if(getMayor()!= null||!getMayor().equals("")){
             camino="";
             st=(Nodo_Final+","+getCaminoNodos(getMayor())); 
-            //System.out.println("C mayor "+st);
+            costoslargo="";
+            costoslargo+="El MAYOR Costo es de "+costomayor+"\n";
+            System.out.println("El MAYOR Costo es de "+costomayor);
         String[] array=st.split(",");
-        //System.out.println("Leng Mayor "+array.length);
+        int c=0;
+            Collections.reverse(Arrays.asList(array));
         for(int x=0;x<array.length-1;x++){
-            if(NodosFactory.IDexist(array[x])&&NodosFactory.IDexist(array[x+1]))
-            largo.add(new Lineas(NodosFactory.getNodo(array[x]).getLocation(),
+            if(NodosFactory.IDexist(array[x])&&NodosFactory.IDexist(array[x+1])){
+                c+=NodosFactory.getNodo(array[x]).getCosto(array[x+1]);
+                System.out.println("De '"+array[x]+"' a '"+array[x+1]+"' tiene un costo de "+c);
+                costoslargo+="De '"+array[x]+"' a '"+array[x+1]+"' tiene un costo de "+c+"\n";
+                largo.add(new Lineas(NodosFactory.getNodo(array[x]).getLocation(),
                     NodosFactory.getNodo(array[x+1]).getLocation(),
                     4));  
+            }
         }
         }
     }
@@ -114,11 +129,11 @@ public class OSPF {
     
     private String getMenor(){
         String s="",iterator="";
-        int old=listafinal.get(getMayor());
+        costomenor=listafinal.get(getMayor());
         for (Iterator<String> it = listafinal.keySet().iterator(); it.hasNext();) {
             iterator=it.next();
-            if(listafinal.get(iterator)<old){
-                old=listafinal.get(iterator);
+            if(listafinal.get(iterator)<costomenor){
+                costomenor=listafinal.get(iterator);
                 s=iterator;
             }    
         }
@@ -138,21 +153,19 @@ public class OSPF {
             } 
         }
     }*/
+    
     private String getCaminoNodos(String id){
         String[] s={""};
         s=id.split("->");
         
-        System.out.println("Recivido "+id);
         if(s[1].equals(Nodo_Inicial)){
             camino+=s[1];
             listacostos.remove(id);
-            System.out.println(camino);
             return camino;
         }    
         else {
             camino+= s[1]+",";
             listacostos.remove(id);
-            System.out.println(camino);
             return getCaminoNodos(getKeyContains(listacostos, s[1]+"->"));
         }    
     }
@@ -181,7 +194,6 @@ public class OSPF {
              if(key.contains(keyContains))
             {   
                 i=key;
-                //System.out.println("k="+i);
                 break;
             } 
         }
