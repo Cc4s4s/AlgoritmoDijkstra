@@ -20,7 +20,7 @@
   </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
-    <Property name="title" type="java.lang.String" value="Grpafos Camino mas corto"/>
+    <Property name="title" type="java.lang.String" value="Algoritmo de Dijkstra"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -200,7 +200,7 @@
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
-                                  <Component id="fin" pref="55" max="32767" attributes="0"/>
+                                  <Component id="fin" pref="51" max="32767" attributes="0"/>
                               </Group>
                               <Group type="102" attributes="0">
                                   <EmptySpace max="32767" attributes="0"/>
@@ -213,7 +213,9 @@
                           <Component id="jButton2" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="-2" pref="697" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
+                  <Component id="EJEMPLOBT" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="549" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -231,7 +233,10 @@
                       <Component id="fin" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jButton2" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="EJEMPLOBT" alignment="3" min="-2" max="-2" attributes="0"/>
+                  </Group>
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
           </Group>
@@ -259,6 +264,14 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="fin">
+        </Component>
+        <Component class="javax.swing.JButton" name="EJEMPLOBT">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="EJEMPLO"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EJEMPLOBTActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
