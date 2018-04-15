@@ -56,6 +56,7 @@ public class MainFrm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         fin = new javax.swing.JTextField();
+        EJEMPLOBT = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -151,6 +152,13 @@ public class MainFrm extends javax.swing.JFrame {
         jLabel3.setText("Nodo Inicial");
 
         jLabel4.setText("Nodo Final");
+        
+        EJEMPLOBT.setText("EJEMPLO");
+        EJEMPLOBT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EJEMPLOBTActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -166,14 +174,16 @@ public class MainFrm extends javax.swing.JFrame {
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addGap(36, 36, 36)
-                                .addComponent(fin, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE))
+                                .addComponent(fin, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE))
                             .addGroup(jPanel5Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel4))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addComponent(jButton2)))
-                .addGap(697, 697, 697))
+                .addGap(75, 75, 75)
+                .addComponent(EJEMPLOBT)
+                .addGap(549, 549, 549))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -187,7 +197,9 @@ public class MainFrm extends javax.swing.JFrame {
                     .addComponent(inicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton2)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton2)
+                    .addComponent(EJEMPLOBT))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -223,6 +235,44 @@ public class MainFrm extends javax.swing.JFrame {
     }//GEN-LAST:event_removeApuntadorBtActionPerformed
 
    
+        private void EJEMPLOBTActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        inspector.setVisible(false);
+        ejemplo();
+    }                                         
+
+   private void ejemplo(){
+        Nodos nod;
+        NodosFactory.getListaNodos().clear();
+        
+        nod=new Nodos("A",104,209);
+         areaP.add(NodosFactory.addNodo(nod)); 
+         
+         nod=new Nodos("B",251,96);
+         areaP.add(NodosFactory.addNodo(nod));
+         nod=new Nodos("C",244,356);
+         areaP.add(NodosFactory.addNodo(nod));
+         nod=new Nodos("D",405,178);
+         areaP.add(NodosFactory.addNodo(nod));
+         nod=new Nodos("E",403,23);
+         areaP.add(NodosFactory.addNodo(nod));
+         nod=new Nodos("F",424,354);
+         areaP.add(NodosFactory.addNodo(nod));
+         nod=new Nodos("G",609,185);
+         areaP.add(NodosFactory.addNodo(nod));
+         NodosFactory.getNodo("A").addApuntadores("B",3);
+         NodosFactory.getNodo("A").addApuntadores("C",5);
+         NodosFactory.getNodo("B").addApuntadores("E",8);
+         NodosFactory.getNodo("B").addApuntadores("D",7);
+         NodosFactory.getNodo("E").addApuntadores("G",4);
+         NodosFactory.getNodo("D").addApuntadores("G",2);
+         NodosFactory.getNodo("C").addApuntadores("F",3);
+         NodosFactory.getNodo("F").addApuntadores("G",10);
+         inicio.setText("A");
+         fin.setText("G");
+        areaP.updateUI();
+    
+    }
+    
     /**
      * @param args the command line arguments
      */
