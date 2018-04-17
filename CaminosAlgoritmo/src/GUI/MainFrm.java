@@ -38,7 +38,7 @@ public class MainFrm extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
         jPanel2 = new javax.swing.JPanel();
@@ -57,6 +57,8 @@ public class MainFrm extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         fin = new javax.swing.JTextField();
         EJEMPLOBT = new javax.swing.JButton();
+        RESULT = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -135,7 +137,7 @@ public class MainFrm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(removeApuntadorBt))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 137, Short.MAX_VALUE))
+                .addGap(0, 121, Short.MAX_VALUE))
         );
 
         getContentPane().add(inspector, java.awt.BorderLayout.LINE_END);
@@ -152,13 +154,17 @@ public class MainFrm extends javax.swing.JFrame {
         jLabel3.setText("Nodo Inicial");
 
         jLabel4.setText("Nodo Final");
-        
+
         EJEMPLOBT.setText("EJEMPLO");
         EJEMPLOBT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EJEMPLOBTActionPerformed(evt);
             }
         });
+
+        RESULT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
+        jLabel5.setText("Ruta más Corta");
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -167,78 +173,94 @@ public class MainFrm extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
+                        .addGap(29, 29, 29)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(inicio))
+                            .addComponent(inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(36, 36, 36)
-                                .addComponent(fin, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE))
+                                .addGap(28, 28, 28)
+                                .addComponent(fin))
                             .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
                                 .addComponent(jLabel4))))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addComponent(jButton2)))
-                .addGap(75, 75, 75)
-                .addComponent(EJEMPLOBT)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(75, 75, 75)
+                        .addComponent(EJEMPLOBT))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(RESULT, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGap(26, 26, 26)
+                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(549, 549, 549))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(22, 22, 22)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(inicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(fin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(inicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(RESULT, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addGap(21, 21, 21)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(EJEMPLOBT))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel5, java.awt.BorderLayout.PAGE_END);
 
         pack();
         setLocationRelativeTo(null);
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
    
   
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        if(NodosFactory.IDexist(inicio.getText())&&NodosFactory.IDexist(fin.getText())){
-            ospf=new OSPF(inicio.getText(), fin.getText());
-            ospf.ospf(0, OSPF.Nodo_Inicial);
-            ospf.LineasCorto();
-            ospf.LineasLargo();
-            ospfaction=true;
-            areaP.repaint();
-        }
-        else JOptionPane.showMessageDialog(null, "Uno de los nodos NO existe!!");
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void addApuntadorBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addApuntadorBtActionPerformed
+    private void addApuntadorBtActionPerformed(java.awt.event.ActionEvent evt) {                                               
         String[] s=JOptionPane.showInputDialog("Ingresa el ID del nodo a apuntar y su Costo\nEjemplo: X,5").split(",");
         NodosFactory.getNodo(idtx.getText()).addApuntadores(s[0], Integer.parseInt(s[1]));
-    }//GEN-LAST:event_addApuntadorBtActionPerformed
+    }                                              
 
-    private void removeApuntadorBtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeApuntadorBtActionPerformed
+    private void removeApuntadorBtActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         int s=listaA.getSelectedIndex();
         if(s!=-1){
             NodosFactory.getNodo(idtx.getText()).removeApuntador(model.remove(s).split("->")[0]);
         }
-    }//GEN-LAST:event_removeApuntadorBtActionPerformed
+    }                                                 
 
-   
-        private void EJEMPLOBTActionPerformed(java.awt.event.ActionEvent evt) {                                          
+    private void EJEMPLOBTActionPerformed(java.awt.event.ActionEvent evt) {                                          
         inspector.setVisible(false);
         ejemplo();
     }                                         
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        if(NodosFactory.IDexist(inicio.getText())&&NodosFactory.IDexist(fin.getText())){
+            ospf=new OSPF(inicio.getText(), fin.getText());
+            ospf.ospf(0, OSPF.Nodo_Inicial);
+            ospf.LineasCorto();
+            //ospf.LineasLargo();
+            ospfaction=true;
+            RESULT.setText(""+OSPF.costomenor);
+            areaP.repaint();
+            JOptionPane.showMessageDialog(null, OSPF.costoscorto+"\n"+OSPF.costoslargo);
+        }
+        else JOptionPane.showMessageDialog(null, "Uno de los nodos NO existe!!");
+    }                                        
 
    private void ejemplo(){
         Nodos nod;
@@ -272,7 +294,6 @@ public class MainFrm extends javax.swing.JFrame {
         areaP.updateUI();
     
     }
-    
     /**
      * @param args the command line arguments
      */
@@ -306,7 +327,9 @@ public class MainFrm extends javax.swing.JFrame {
         });
     }
 
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify                     
+    public javax.swing.JButton EJEMPLOBT;
+    public javax.swing.JLabel RESULT;
     public javax.swing.JButton addApuntadorBt;
     public javax.swing.JTextField fin;
     public static javax.swing.JLabel idtx;
@@ -317,10 +340,11 @@ public class MainFrm extends javax.swing.JFrame {
     public javax.swing.JLabel jLabel2;
     public javax.swing.JLabel jLabel3;
     public javax.swing.JLabel jLabel4;
+    public javax.swing.JLabel jLabel5;
     public javax.swing.JPanel jPanel2;
     public javax.swing.JPanel jPanel5;
     public javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JList<String> listaA;
     public javax.swing.JButton removeApuntadorBt;
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration                   
 }
