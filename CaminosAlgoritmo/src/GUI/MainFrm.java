@@ -56,9 +56,13 @@ public class MainFrm extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         fin = new javax.swing.JTextField();
-        EJEMPLOBT = new javax.swing.JButton();
         RESULT = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        nuevoMenu = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        ejemploMenu = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -137,7 +141,7 @@ public class MainFrm extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(removeApuntadorBt))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 121, Short.MAX_VALUE))
+                .addGap(0, 100, Short.MAX_VALUE))
         );
 
         getContentPane().add(inspector, java.awt.BorderLayout.LINE_END);
@@ -154,13 +158,6 @@ public class MainFrm extends javax.swing.JFrame {
         jLabel3.setText("Nodo Inicial");
 
         jLabel4.setText("Nodo Final");
-
-        EJEMPLOBT.setText("EJEMPLO");
-        EJEMPLOBT.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EJEMPLOBTActionPerformed(evt);
-            }
-        });
 
         RESULT.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
@@ -189,15 +186,12 @@ public class MainFrm extends javax.swing.JFrame {
                         .addComponent(jButton2)))
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(75, 75, 75)
-                        .addComponent(EJEMPLOBT))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(RESULT, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(549, 549, 549))
+                .addGap(570, 570, 570))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -218,13 +212,44 @@ public class MainFrm extends javax.swing.JFrame {
                                 .addGap(6, 6, 6)
                                 .addComponent(RESULT, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(21, 21, 21)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(EJEMPLOBT))
+                .addComponent(jButton2)
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
         getContentPane().add(jPanel5, java.awt.BorderLayout.PAGE_END);
+
+        nuevoMenu.setText("Archivo");
+
+        jMenuItem1.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem1.setText("Nuevo");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        nuevoMenu.add(jMenuItem1);
+
+        ejemploMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        ejemploMenu.setText("Ejemplo");
+        ejemploMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ejemploMenuActionPerformed(evt);
+            }
+        });
+        nuevoMenu.add(ejemploMenu);
+
+        jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItem3.setText("Salir");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        nuevoMenu.add(jMenuItem3);
+
+        jMenuBar1.add(nuevoMenu);
+
+        setJMenuBar(jMenuBar1);
 
         pack();
         setLocationRelativeTo(null);
@@ -243,11 +268,6 @@ public class MainFrm extends javax.swing.JFrame {
         }
     }                                                 
 
-    private void EJEMPLOBTActionPerformed(java.awt.event.ActionEvent evt) {                                          
-        inspector.setVisible(false);
-        ejemplo();
-    }                                         
-
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
         if(NodosFactory.IDexist(inicio.getText())&&NodosFactory.IDexist(fin.getText())){
             ospf=new OSPF(inicio.getText(), fin.getText());
@@ -262,10 +282,35 @@ public class MainFrm extends javax.swing.JFrame {
         else JOptionPane.showMessageDialog(null, "Uno de los nodos NO existe!!");
     }                                        
 
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        System.exit(0);
+    }                                          
+
+    private void ejemploMenuActionPerformed(java.awt.event.ActionEvent evt) {                                            
+        ejemplo();
+    }                                           
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        clearPanel();
+    }                                          
+
+    
+    
+    private void clearPanel(){
+        NodosFactory.getListaNodos().clear();
+        areaP.revalidate();
+        areaP.removeAll();
+        inicio.setText("");
+        fin.setText("");
+        RESULT.setText("");
+        areaP.updateUI();
+    }
+    
+    
    private void ejemplo(){
         Nodos nod;
         NodosFactory.getListaNodos().clear();
-        
+        clearPanel();
         nod=new Nodos("A",104,209);
          areaP.add(NodosFactory.addNodo(nod)); 
          
@@ -328,9 +373,9 @@ public class MainFrm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify                     
-    public javax.swing.JButton EJEMPLOBT;
     public javax.swing.JLabel RESULT;
     public javax.swing.JButton addApuntadorBt;
+    public javax.swing.JMenuItem ejemploMenu;
     public javax.swing.JTextField fin;
     public static javax.swing.JLabel idtx;
     public javax.swing.JTextField inicio;
@@ -341,10 +386,14 @@ public class MainFrm extends javax.swing.JFrame {
     public javax.swing.JLabel jLabel3;
     public javax.swing.JLabel jLabel4;
     public javax.swing.JLabel jLabel5;
+    public javax.swing.JMenuBar jMenuBar1;
+    public javax.swing.JMenuItem jMenuItem1;
+    public javax.swing.JMenuItem jMenuItem3;
     public javax.swing.JPanel jPanel2;
     public javax.swing.JPanel jPanel5;
     public javax.swing.JScrollPane jScrollPane1;
     public javax.swing.JList<String> listaA;
+    public javax.swing.JMenu nuevoMenu;
     public javax.swing.JButton removeApuntadorBt;
     // End of variables declaration                   
 }
