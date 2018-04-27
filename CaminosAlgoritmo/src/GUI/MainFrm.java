@@ -16,8 +16,17 @@
  */
 package GUI;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 /**
  * @author Salvador Vera Franco 
@@ -29,8 +38,14 @@ public class MainFrm extends javax.swing.JFrame {
     static boolean ospfaction=false;
     static areaP areaP=new areaP();
     static OSPF ospf;
+    String pathtitle = "",DEFAULT_TITLE="Algoritmo de Dijkstra";
     public MainFrm() {
-        
+       /* try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
+          //  Logger.getLogger(MainFrm.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+       chooser.setFileFilter(new FileNameExtensionFilter("Archivo Anubis (.anb)","anb"));
         initComponents();
        getContentPane().add(areaP, java.awt.BorderLayout.CENTER);
        inspector.setVisible(false);
@@ -61,7 +76,9 @@ public class MainFrm extends javax.swing.JFrame {
         jMenuBar1 = new javax.swing.JMenuBar();
         nuevoMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
-        ejemploMenu = new javax.swing.JMenuItem();
+        abrirMenu = new javax.swing.JMenuItem();
+        saveMenu = new javax.swing.JMenuItem();
+        saveasMenu = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -174,23 +191,17 @@ public class MainFrm extends javax.swing.JFrame {
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(inicio, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(fin))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
-                                .addComponent(jLabel4))))
+                            .addComponent(fin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addComponent(jButton2)))
+                .addGap(26, 26, 26)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(RESULT, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(RESULT, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(570, 570, 570))
         );
         jPanel5Layout.setVerticalGroup(
@@ -229,14 +240,32 @@ public class MainFrm extends javax.swing.JFrame {
         });
         nuevoMenu.add(jMenuItem1);
 
-        ejemploMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
-        ejemploMenu.setText("Ejemplo");
-        ejemploMenu.addActionListener(new java.awt.event.ActionListener() {
+        abrirMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        abrirMenu.setText("Abrir");
+        abrirMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ejemploMenuActionPerformed(evt);
+                abrirMenuActionPerformed(evt);
             }
         });
-        nuevoMenu.add(ejemploMenu);
+        nuevoMenu.add(abrirMenu);
+
+        saveMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        saveMenu.setText("Guardar");
+        saveMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveMenuActionPerformed(evt);
+            }
+        });
+        nuevoMenu.add(saveMenu);
+
+        saveasMenu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        saveasMenu.setText("Guardar como");
+        saveasMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveasMenuActionPerformed(evt);
+            }
+        });
+        nuevoMenu.add(saveasMenu);
 
         jMenuItem3.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
         jMenuItem3.setText("Salir");
@@ -259,12 +288,16 @@ public class MainFrm extends javax.swing.JFrame {
     private void addApuntadorBtActionPerformed(java.awt.event.ActionEvent evt) {                                               
         String[] s=JOptionPane.showInputDialog("Ingresa el ID del nodo a apuntar y su Costo\nEjemplo: X,5").split(",");
         NodosFactory.getNodo(idtx.getText()).addApuntadores(s[0], Integer.parseInt(s[1]));
+        if(!getTitle().contains("*"))
+            setTitle(getTitle()+"*");
     }                                              
 
     private void removeApuntadorBtActionPerformed(java.awt.event.ActionEvent evt) {                                                  
         int s=listaA.getSelectedIndex();
         if(s!=-1){
             NodosFactory.getNodo(idtx.getText()).removeApuntador(model.remove(s).split("->")[0]);
+            if(!getTitle().contains("*"))
+                setTitle(getTitle()+"*");
         }
     }                                                 
 
@@ -277,7 +310,7 @@ public class MainFrm extends javax.swing.JFrame {
             ospfaction=true;
             RESULT.setText(""+OSPF.costomenor);
             areaP.repaint();
-            JOptionPane.showMessageDialog(null, OSPF.costoscorto+"\n"+OSPF.costoslargo);
+            //JOptionPane.showMessageDialog(null, OSPF.costoscorto+"\n"+OSPF.costoslargo);
         }
         else JOptionPane.showMessageDialog(null, "Uno de los nodos NO existe!!");
     }                                        
@@ -286,15 +319,77 @@ public class MainFrm extends javax.swing.JFrame {
         System.exit(0);
     }                                          
 
-    private void ejemploMenuActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        ejemplo();
-    }                                           
-
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
         clearPanel();
+        pathtitle="";
+        setTitle(DEFAULT_TITLE);
+        inspector.setVisible(false);
     }                                          
 
+    private void saveMenuActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        try {
+            //clearPanel();
+            if(!pathtitle.equals("")){
+                FileUtils.create_ANB_File(pathtitle);
+                setTitle(DEFAULT_TITLE+"   "+pathtitle);
+            }    
+            else {
+                pathtitle=getPathtoSave(true);
+                FileUtils.create_ANB_File(pathtitle);
+                setTitle(DEFAULT_TITLE+"   "+pathtitle);
+            }    
+            inspector.setVisible(false);
+        } catch (IOException ex) {}
+    }                                        
+
+    private void saveasMenuActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        try {
+            //clearPanel();
+            pathtitle=getPathtoSave(true);
+            if(!pathtitle.equals("")){
+                FileUtils.create_ANB_File(pathtitle);
+                setTitle(DEFAULT_TITLE+"   "+pathtitle);
+            }
+        } catch (IOException ex) {  }
+        inspector.setVisible(false);
+    }                                          
+
+    private void abrirMenuActionPerformed(java.awt.event.ActionEvent evt) {                                          
+        try {
+            
+            pathtitle=getPathtoSave(false);
+            clearPanel();
+            FileUtils.read_ANB_File(pathtitle);
+            setTitle(DEFAULT_TITLE+"   "+pathtitle);
+        } catch (IOException ex) {}
+        inspector.setVisible(false);
+    }                                         
+
     
+    private String getPathtoSave(boolean save){
+        String title="";
+        int r=-1;
+        if(save){
+            title="Guardar como";
+        }    
+        else {
+            title="Abrir Archivo";
+            chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        }    
+        chooser.setCurrentDirectory(new java.io.File(""));
+        chooser.setDialogTitle(title);
+        chooser.setAcceptAllFileFilterUsed(false);
+        if(save)
+            r= chooser.showSaveDialog(this);
+      
+        else 
+           r= chooser.showOpenDialog(this);
+        
+        if(r==JFileChooser.APPROVE_OPTION)
+            return chooser.getSelectedFile().toString();
+        else    
+            return "";
+    }
     
     private void clearPanel(){
         NodosFactory.getListaNodos().clear();
@@ -307,38 +402,6 @@ public class MainFrm extends javax.swing.JFrame {
     }
     
     
-   private void ejemplo(){
-        Nodos nod;
-        NodosFactory.getListaNodos().clear();
-        clearPanel();
-        nod=new Nodos("A",104,209);
-         areaP.add(NodosFactory.addNodo(nod)); 
-         
-         nod=new Nodos("B",251,96);
-         areaP.add(NodosFactory.addNodo(nod));
-         nod=new Nodos("C",244,356);
-         areaP.add(NodosFactory.addNodo(nod));
-         nod=new Nodos("D",405,178);
-         areaP.add(NodosFactory.addNodo(nod));
-         nod=new Nodos("E",403,23);
-         areaP.add(NodosFactory.addNodo(nod));
-         nod=new Nodos("F",424,354);
-         areaP.add(NodosFactory.addNodo(nod));
-         nod=new Nodos("G",609,185);
-         areaP.add(NodosFactory.addNodo(nod));
-         NodosFactory.getNodo("A").addApuntadores("B",3);
-         NodosFactory.getNodo("A").addApuntadores("C",5);
-         NodosFactory.getNodo("B").addApuntadores("E",8);
-         NodosFactory.getNodo("B").addApuntadores("D",7);
-         NodosFactory.getNodo("E").addApuntadores("G",4);
-         NodosFactory.getNodo("D").addApuntadores("G",2);
-         NodosFactory.getNodo("C").addApuntadores("F",3);
-         NodosFactory.getNodo("F").addApuntadores("G",10);
-         inicio.setText("A");
-         fin.setText("G");
-        areaP.updateUI();
-    
-    }
     /**
      * @param args the command line arguments
      */
@@ -371,14 +434,14 @@ public class MainFrm extends javax.swing.JFrame {
             new MainFrm().setVisible(true);
         });
     }
-
+    public JFileChooser chooser = new JFileChooser();
     // Variables declaration - do not modify                     
     public javax.swing.JLabel RESULT;
+    public javax.swing.JMenuItem abrirMenu;
     public javax.swing.JButton addApuntadorBt;
-    public javax.swing.JMenuItem ejemploMenu;
-    public javax.swing.JTextField fin;
+    public static javax.swing.JTextField fin;
     public static javax.swing.JLabel idtx;
-    public javax.swing.JTextField inicio;
+    public static javax.swing.JTextField inicio;
     public static javax.swing.JPanel inspector;
     public javax.swing.JButton jButton2;
     public javax.swing.JLabel jLabel1;
@@ -395,5 +458,7 @@ public class MainFrm extends javax.swing.JFrame {
     public javax.swing.JList<String> listaA;
     public javax.swing.JMenu nuevoMenu;
     public javax.swing.JButton removeApuntadorBt;
+    public javax.swing.JMenuItem saveMenu;
+    public javax.swing.JMenuItem saveasMenu;
     // End of variables declaration                   
 }
