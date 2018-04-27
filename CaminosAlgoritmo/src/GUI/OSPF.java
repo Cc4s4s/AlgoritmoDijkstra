@@ -17,43 +17,45 @@
 package GUI;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 
 /**
  * @author Salvador Vera Franco 
- *  OSPF class 1.0
+ *  OSPF class 1.1
  */
 
 public class OSPF {
     public static String Nodo_Inicial,Nodo_Final,camino="";
     HashMap<String,Integer> listacostos=new HashMap<>();
     HashMap<String,Integer> listafinal=new HashMap<>();
-    static String costoslargo ="";
-    static String costoscorto ="";
-    private int costomayor,costomenor;
     ArrayList<Lineas> largo=new ArrayList<>();
     ArrayList<Lineas> corto=new ArrayList<>();
+    
     public OSPF(String Nodo_Inicial,String Nodo_Final){
         OSPF.Nodo_Final=Nodo_Final;
-        OSPF.Nodo_Inicial=Nodo_Inicial;
-        
+        OSPF.Nodo_Inicial=Nodo_Inicial; 
     }
     
     public void ospf(int n,String nodo){
        NodosFactory.getNodo(nodo).getNodosApuntadores().forEach((a)->{
            int costo;
            costo=NodosFactory.getNodo(nodo).getCosto(a);
-         //  eliminarMayor(listacostos,"->"+nodo,costo);
-          // if(getValueContains(listacostos, "->"+nodo)>costo||!isKeyContains(listacostos, "->"+nodo))
-            listacostos.put(a+"->"+nodo, n+costo);
+           listacostos.put(a+"->"+nodo, n+costo);
            
-           if(!a.equals(Nodo_Final))
+           if(!a.equals(Nodo_Final)){
             ospf(n+costo,a);
-           else 
-            listafinal.put(a+"->"+nodo, n+costo);   
+           }
+           else{ 
+            if(!listafinal.containsKey(a+"->"+nodo) || listafinal.get(a+"->"+nodo)>n+costo)
+                listafinal.put(a+"->"+nodo, n+costo);   
+           
+           }
        });
     }
+    static int costomayor,costomenor;
     
     private String getMayor(){
         String s="",iterator="";
@@ -68,9 +70,6 @@ public class OSPF {
         return s; 
     }
     
-    public ArrayList<Lineas> getLineasCorto(){
-        return corto;
-    }
     
     public void LineasCorto(){
         corto.clear();
@@ -97,30 +96,12 @@ public class OSPF {
         
     }
     
-    public void LineasLargo(){
-        largo.clear();
-        String st="";
-        if(getMayor()!= null||!getMayor().equals("")){
-            camino="";
-            st=(Nodo_Final+","+getCaminoNodos(getMayor())); 
-            costoslargo="";
-            costoslargo+="El MAYOR Costo es de "+costomayor+"\n";
-            System.out.println("El MAYOR Costo es de "+costomayor);
-        String[] array=st.split(",");
-        int c=0;
-            Collections.reverse(Arrays.asList(array));
-        for(int x=0;x<array.length-1;x++){
-            if(NodosFactory.IDexist(array[x])&&NodosFactory.IDexist(array[x+1])){
-                c+=NodosFactory.getNodo(array[x]).getCosto(array[x+1]);
-                System.out.println("De '"+array[x]+"' a '"+array[x+1]+"' tiene un costo de "+c);
-                costoslargo+="De '"+array[x]+"' a '"+array[x+1]+"' tiene un costo de "+c+"\n";
-                largo.add(new Lineas(NodosFactory.getNodo(array[x]).getLocation(),
-                    NodosFactory.getNodo(array[x+1]).getLocation(),
-                    4));  
-            }
-        }
-        }
+    public ArrayList<Lineas> getLineasCorto(){
+        return corto;
     }
+    static String costoslargo ="";
+    static String costoscorto ="";
+    
     
     public ArrayList<Lineas> getLineasLargo(){
         return largo;
@@ -129,7 +110,7 @@ public class OSPF {
     
     private String getMenor(){
         String s="",iterator="";
-        costomenor=listafinal.get(getMayor());
+        costomenor=Integer.MAX_VALUE;//listafinal.get(getMayor());
         for (Iterator<String> it = listafinal.keySet().iterator(); it.hasNext();) {
             iterator=it.next();
             if(listafinal.get(iterator)<costomenor){
@@ -153,7 +134,6 @@ public class OSPF {
             } 
         }
     }*/
-    
     private String getCaminoNodos(String id){
         String[] s={""};
         s=id.split("->");
@@ -170,20 +150,7 @@ public class OSPF {
         }    
     }
     
-    private int getValueContains(HashMap hm,String keyContains){
-         Iterator it = hm.keySet().iterator();
-        String key; 
-        int i=-1;
-        while(it.hasNext()){
-            key = (String) it.next();
-             if(key.contains(keyContains))
-            {   
-                i=(int)hm.get(key);
-                break;
-            } 
-        }
-        return i;
-    }
+  
     
     private String getKeyContains(HashMap hm,String keyContains){
          Iterator it = hm.keySet().iterator();
@@ -194,34 +161,13 @@ public class OSPF {
              if(key.contains(keyContains))
             {   
                 i=key;
+                //System.out.println("k="+i);
                 break;
             } 
         }
         return i;
     }
     
-    private boolean isKeyContains(HashMap hm,String keyContains){
-         Iterator it = hm.keySet().iterator();
-        String key; 
-        boolean i=false;
-        while(it.hasNext()){
-            key = (String) it.next();
-             if(key.contains(keyContains))
-            {   
-                i=true;
-                break;
-            } 
-        }
-        return i;
-    }
-    
-   /* public void buscar(){
-        System.out.println(Nodo_Final+","+getCaminoNodos(getMayor()));
-        camino=Nodo_Final+",";
-        System.out.println("Menor "+getMenor());
-        System.out.println(getCaminoNodos(getMenor()));
-        
-        
-    }*/
+  
     
 }
